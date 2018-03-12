@@ -6,6 +6,7 @@ const webpack = require("webpack");
 module.exports = {
   devtool: "source-map",
   plugins: [
+    new webpack.ProgressPlugin(),
     new HtmlWebpackPlugin(),
     new webpack.DefinePlugin({
       WEBGL_RENDERER: true,
