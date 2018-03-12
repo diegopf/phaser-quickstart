@@ -18,7 +18,7 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
-let player, cursors;
+let player, cursors, keyX;
 
 function preload() {
   this.load.spritesheet("knight", "src/assets/knight-sprite-sheet.png", {
@@ -46,7 +46,15 @@ function create() {
     repeat: -1
   });
 
+  this.anims.create({
+    key: "attack",
+    frames: this.anims.generateFrameNumbers("knight", { start: 6, end: 16 }),
+    frameRate: 10,
+    repeat: 0
+  });
+
   cursors = this.input.keyboard.createCursorKeys();
+  keyX = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
 }
 
 function update() {
@@ -56,6 +64,8 @@ function update() {
   } else if (cursors.right.isDown) {
     player.setVelocityX(160);
     player.anims.play("right", true);
+  } else if (keyX.isDown) {
+    player.anims.play("attack", true);
   } else {
     player.setVelocityX(0);
   }
