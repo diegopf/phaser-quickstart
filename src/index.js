@@ -18,16 +18,24 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
-let player, cursors, keyX;
+let player, cursors, keyX, platforms;
 
 function preload() {
   this.load.spritesheet("knight", "src/assets/knight-sprite-sheet.png", {
     frameWidth: 90,
     frameHeight: 90
   });
+  this.load.image("ground", "src/assets/platform.png");
 }
 
 function create() {
+  platforms = this.physics.add.staticGroup();
+  platforms
+    .create(400, 568, "ground")
+    .setScale(2)
+    .refreshBody();
+  platforms.create(600, 400, "ground");
+
   player = this.physics.add.sprite(100, 450, "knight");
   player.setBounce(0.5);
   player.setCollideWorldBounds(true);
@@ -55,6 +63,8 @@ function create() {
 
   cursors = this.input.keyboard.createCursorKeys();
   keyX = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
+
+  this.physics.add.collider(player, platforms);
 }
 
 function update() {
