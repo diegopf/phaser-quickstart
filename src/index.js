@@ -37,7 +37,7 @@ function create() {
   platforms.create(600, 400, "ground");
 
   player = this.physics.add.sprite(100, 450, "knight");
-  player.setBounce(0.5);
+  player.setBounce(0.1);
   player.setCollideWorldBounds(true);
 
   this.anims.create({
@@ -78,5 +78,9 @@ function update() {
     player.anims.play("attack", true);
   } else {
     player.setVelocityX(0);
+  }
+
+  if (cursors.up.isDown && player.body.touching.down) {
+    player.setVelocityY(-300);
   }
 }
