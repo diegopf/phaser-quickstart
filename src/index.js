@@ -39,6 +39,7 @@ function create() {
   player = this.physics.add.sprite(100, 450, "knight");
   player.setBounce(0.1);
   player.setCollideWorldBounds(true);
+  player.setGravity(50);
 
   this.anims.create({
     key: "left",
